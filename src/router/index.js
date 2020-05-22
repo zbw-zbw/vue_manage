@@ -1,22 +1,55 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
+const routes = [{
+    path: '',
+    redirect: '/login'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    component: () => import('@/views/login/Login.vue')
+  },
+  {
+    path: '',
+    component: () => import("@/views/homepage/Homepage"),
+    children: [{
+        path: '/department',
+        meta: {
+          title: "部门管理"
+        },
+        component: () => import("@/views/department/Department")
+      },
+      {
+        path: '/employee',
+        meta: {
+          title: "员工管理"
+        },
+        component: () => import("@/views/employee/Employee")
+      },
+      {
+        path: '/permission',
+        meta: {
+          title: "权限管理"
+        },
+        component: () => import("@/views/permission/Permission")
+      },
+      {
+        path: '/role',
+        meta: {
+          title: "角色管理"
+        },
+        component: () => import("@/views/role/Role")
+      },
+      {
+        path: '/sysdictionary',
+        meta: {
+          title: "数据字典管理"
+        },
+        component: () => import("@/views/sysdictionary/Sysdictionary")
+      },
+    ]
   }
 ]
 
